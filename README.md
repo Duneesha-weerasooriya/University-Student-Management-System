@@ -1,18 +1,19 @@
 # University Student Record and Campus Route Management System
 
-## CIT300 – Data Structures and Algorithms
-
-**Graded Practical Assignment 1 – Week 10**
-
-Name - W.A. DUNEESHA NETHMI
+Name - W.A.Duneesha Nethmi
 Student ID - 22UG3-0580
+
+## 1. Project Title
+
+**University Student Record and Campus Route Management System**
+
 ---
 
-## 1. Project Overview
+## 2. Project Overview
 
-The **University Student Record and Campus Route Management System** is a Java-based console application developed for managing university student records and representing connections between campus locations.
+This project is a Java-based console application developed to manage university student records, student service requests, and campus locations.
 
-The system demonstrates the practical use of different data structures, including:
+The system demonstrates different Data Structures and Algorithms concepts such as:
 
 - Singly Linked List
 - Stack
@@ -22,38 +23,24 @@ The system demonstrates the practical use of different data structures, includin
 - Graph using Adjacency List
 - Breadth-First Search (BFS)
 
-The application provides a menu-driven interface that allows users to manage student records, process student service requests, search students efficiently, and manage campus locations and connections.
+The system provides a menu-driven interface where users can add, update, delete, search, and display student records. It also manages service requests and campus locations and connections.
 
 ---
 
-## 2. Student Information
+## 3. Objectives
 
-| Field | Details |
-|---|---|
-| Student Name | W. A. Duneesha Nethmi |
-| Student ID | 22UG3-0580 |
-| Project Type | Individual Project |
-| Module | CIT300 – Data Structures and Algorithms |
+The main objectives of this project are:
 
----
-
-## 3. Project Objective
-
-The main objective of this project is to develop a Java console application that demonstrates the practical implementation of important data structures.
-
-The system is designed to:
-
-- Store and manage student records.
-- Use a linked list for student records.
-- Use a stack to maintain recent actions and history.
-- Use a queue to manage student service requests.
-- Use a Binary Search Tree to organize students by Student ID.
-- Use hashing for efficient Student ID searching.
-- Represent campus locations and roads using a graph.
-- Use an adjacency list to represent the graph.
-- Use BFS to traverse campus locations.
-- Provide a menu-driven console interface.
-- Validate user inputs and handle invalid operations.
+- To manage university student records efficiently.
+- To demonstrate the use of different data structures.
+- To implement student record operations such as adding, updating, deleting, searching, and displaying.
+- To manage student service requests using a Queue.
+- To maintain recent system actions using a Stack.
+- To search and organize students using a Binary Search Tree.
+- To perform fast student ID searching using a Hash Table.
+- To represent campus locations and roads using a Graph.
+- To traverse connected campus locations using Breadth-First Search (BFS).
+- To provide input validation and handle invalid user inputs.
 
 ---
 
@@ -61,215 +48,125 @@ The system is designed to:
 
 ### 4.1 Singly Linked List
 
-The Singly Linked List is used to store and manage student records.
+The Singly Linked List is used to store student records.
 
-Each student is stored inside a `StudentNode`.
+It supports:
 
-The linked list supports:
+- Adding student records
+- Finding student records
+- Deleting student records
+- Checking whether the list is empty
+- Displaying all student records
 
-- Add student
-- Find student
-- Check whether a student exists
-- Delete student
-- Display all students
+The linked list stores the main student records in the system.
+
+---
 
 ### 4.2 Stack
 
-The Stack is used to store recent actions performed by the user.
-
-Examples of stored actions include:
-
-- Adding a student
-- Updating a student
-- Deleting a student
-- Adding a service request
-- Processing a service request
-- Adding or removing campus locations
-- Adding or removing campus connections
-- Performing BFS traversal
+A Stack is used to store recent actions performed in the system.
 
 The Stack follows the **LIFO (Last In, First Out)** principle.
 
+For example, when a new action is performed, it is pushed into the Stack. The most recent action can be viewed first.
+
+Operations include:
+
+- Push
+- Pop
+- Display recent actions
+
+---
+
 ### 4.3 Queue
 
-The Queue is used to manage student service requests.
-
-Service requests are processed according to their arrival order.
+A Queue is used to manage student service requests.
 
 The Queue follows the **FIFO (First In, First Out)** principle.
 
-The Queue supports:
+The first service request added to the queue is processed first.
 
-- Enqueue
-- Dequeue
-- Check whether the queue is empty
+Operations include:
+
+- Add a service request
+- Process the next request
 - Display pending requests
 
-### 4.4 Binary Search Tree
+---
 
-The Binary Search Tree (BST) is used to organize student records according to Student ID.
+### 4.4 Binary Search Tree (BST)
+
+A Binary Search Tree is used to organize student records according to Student ID.
 
 The BST supports:
 
 - Insert student
 - Search student
 - Delete student
-- Display students using in-order traversal
+- In-order traversal
 
-The in-order traversal displays students in sorted Student ID order.
+The Student ID is used as the key for the BST.
+
+---
 
 ### 4.5 Hash Table
 
-The Hash Table is used for efficient Student ID searching.
+A Hash Table is used for searching students by Student ID.
 
 The implementation uses:
 
-- Table size of 101
 - Hash function
-- Linear probing for collision handling
-- Search operation
-- Insert operation
-- Delete operation
-- Cluster rehashing after deletion
+- Linear probing
+- Table size of 101
+- Collision handling
+- Delete operation with cluster rehashing
+
+This allows student records to be searched efficiently using the Student ID.
+
+---
 
 ### 4.6 Graph
 
-The Graph represents the university campus.
-
-In the graph:
-
-- Campus locations are vertices.
-- Roads or direct connections are edges.
+A Graph is used to represent campus locations and connections between them.
 
 The graph is implemented using an **Adjacency List**.
 
-The graph supports:
+Campus locations are represented as vertices, while roads or connections between locations are represented as edges.
 
-- Add campus location
-- Remove campus location
-- Add campus connection
-- Remove campus connection
-- Display campus connections
-- Display connected locations
-- BFS traversal
+The system supports:
+
+- Adding campus locations
+- Removing campus locations
+- Adding campus connections
+- Removing campus connections
+- Displaying campus connections
+- Displaying connected locations
+
+---
 
 ### 4.7 Breadth-First Search (BFS)
 
-BFS is used to traverse the campus graph starting from a selected campus location.
+Breadth-First Search is used to traverse connected campus locations.
 
-A Queue is used during the BFS traversal to visit connected locations level by level.
+BFS starts from a selected campus location and visits connected locations level by level.
+
+A Queue is used during the BFS traversal.
 
 ---
 
-## 5. System Features
+## 5. Main System Features
 
 The system provides the following main features:
 
-### Student Management
-
-- Add Student Record
-- Update Student Record
-- Delete Student Record
-- Display All Student Records
-- Search Student using Hashing
-- Display Students using BST
-
-### Student Service Requests
-
-- Add a service request
-- Process the next service request
-- Display pending service requests
-
-### Recent Actions
-
-- Store recent actions using Stack
-- Display recent actions in LIFO order
-
-### Campus Management
-
-- Add campus location
-- Remove campus location
-- Add campus connection/road
-- Remove campus connection/road
-- Display campus network
-- Display connected locations
-- Traverse campus using BFS
-
----
-
-## 6. Student Record Details
-
-Each student record contains the following information:
-
-- Student ID
-- Student Name
-- Programme
-- Marks
-
-The `Student` class contains getter and setter methods to access and update student information.
-
-The system also validates marks to ensure that they are between **0 and 100**.
-
----
-
-## 7. Sample Student Data
-
-The system initializes with the following sample student records:
-
-| Student ID | Name | Programme | Marks |
-|---|---|---|---:|
-| S001 | Ashen Shanuka | Applied IT | 78.50 |
-| S002 | Nimal Perera | Computer Science | 82.00 |
-| S003 | Kamal Silva | Cyber Security | 74.50 |
-
----
-
-## 8. Sample Campus Data
-
-The system initializes with the following campus locations:
-
-- Main Gate
-- Administration Building
-- Faculty of Computing
-- Library
-- Student Center
-- ICT Laboratory
-
-The initial campus connections include:
-
-```text
-Main Gate
-    |
-Administration Building
-    |---------------- Faculty of Computing
-    |                       |------------ ICT Laboratory
-    |                       |
-    |                       |------------ Student Center
-    |
-    |---------------- Library
-                            |
-                            |------------ Student Center
-```
-
----
-
-## 9. Main Menu
-
-The application provides the following menu:
-
-```text
-======================================================
-       UNIVERSITY STUDENT MANAGEMENT SYSTEM
-======================================================
-1.  Add Student Record
-2.  Update Student Record
-3.  Delete Student Record
-4.  Display All Records using Linked List
-5.  Add Service Request to Queue
-6.  Process Next Service Request
-7.  Display Pending Service Requests
-8.  Display Recent Actions using Stack
-9.  Display Students using BST
+1. Add Student Record
+2. Update Student Record
+3. Delete Student Record
+4. Display All Student Records
+5. Add Service Request
+6. Process Next Service Request
+7. Display Pending Service Requests
+8. Display Recent Actions
+9. Display Students using BST
 10. Search Student using Hashing
 11. Add Campus Location
 12. Remove Campus Location
@@ -278,234 +175,175 @@ The application provides the following menu:
 15. Display Campus Connections
 16. Display Connected Locations
 17. Traverse Campus using BFS
-0.  Exit
-======================================================
-```
+18. Exit the System
+
+---
+
+## 6. Student Record Management
+
+The system stores the following student information:
+
+- Student ID
+- Student Name
+- Programme
+- Marks
+
+Users can:
+
+- Add a new student
+- Update an existing student
+- Delete a student
+- Display all students
+- Search students using hashing
+- Display students using the BST
+
+---
+
+## 7. Service Request Management
+
+Students can submit service requests through the system.
+
+Each service request contains:
+
+- Student ID
+- Request description
+- Request time
+
+The Queue processes requests according to the FIFO principle.
+
+The system can:
+
+- Add a new service request
+- Process the next service request
+- Display all pending service requests
+
+---
+
+## 8. Campus Route Management
+
+The system represents the university campus using a Graph.
+
+The sample campus contains the following locations:
+
+- Main Gate
+- Administration Building
+- Faculty of Computing
+- Library
+- Student Center
+- ICT Laboratory
+
+Sample connections include:
+
+- Main Gate → Administration Building
+- Administration Building → Faculty of Computing
+- Administration Building → Library
+- Faculty of Computing → ICT Laboratory
+- Faculty of Computing → Student Center
+- Library → Student Center
+
+The user can add or remove campus locations and connections.
+
+---
+
+## 9. Campus Traversal Using BFS
+
+The system provides a BFS traversal option.
+
+The user can select a starting campus location and the system visits connected locations using Breadth-First Search.
+
+For example:
+
+**Starting Location: Main Gate**
+
+The BFS can visit:
+
+`Main Gate → Administration Building → Faculty of Computing → Library → ICT Laboratory → Student Center`
+
+The exact traversal order depends on the connections stored in the adjacency list.
 
 ---
 
 ## 10. Input Validation
 
-The system includes input validation to prevent invalid data and operations.
+Input validation is included to make the system safer and easier to use.
 
-The application handles:
+The system checks:
 
 - Empty input
 - Invalid menu choices
-- Non-numeric menu input
-- Invalid marks
-- Marks outside the range 0–100
+- Invalid integer values
+- Marks outside the range of 0–100
 - Duplicate Student IDs
-- Missing student records
-- Missing campus locations
-- Duplicate campus connections
+- Student IDs that do not exist
+- Duplicate campus locations
+- Campus locations that do not exist
 - Invalid campus connections
-- Empty service requests
+- Connections that are not available
 
-For example, when entering marks, only values between 0 and 100 are accepted.
+This helps prevent invalid data from being entered into the system.
 
 ---
 
-## 11. Classes Used in the Project
+## 11. Sample Student Data
 
-The main classes used in the system are:
+The system contains sample student records for testing.
 
-### Student Classes
+| Student ID | Name | Programme | Marks |
+|---|---|---|---:|
+| S001 | Ashen Shanuka | Applied IT | 78.50 |
+| S002 | Nimal Perera | Computer Science | 82.00 |
+| S003 | Kamal Silva | Cyber Security | 74.50 |
 
-```text
-Student
-StudentNode
-StudentLinkedList
-```
+These records are used to demonstrate the functionality of the different data structures.
 
-### Stack
+---
 
-```text
-ActionStack
-```
+## 12. Technologies Used
 
-### Queue
+- **Programming Language:** Java
+- **Application Type:** Console Application
+- **Data Structures:** Linked List, Stack, Queue, BST, Hash Table, Graph
+- **Graph Representation:** Adjacency List
+- **Graph Algorithm:** Breadth-First Search (BFS)
+- **Development Environment:** Java-compatible IDE / Command Line
 
-```text
-ServiceRequest
-ServiceRequestQueue
-```
+---
 
-### Binary Search Tree
+## 13. Project Structure
 
-```text
-StudentBSTNode
-StudentBST
-```
-
-### Hash Table
-
-```text
-StudentHashTable
-```
-
-### Graph
-
-```text
-CampusGraph
-```
-
-### Main System
+The main Java file contains the following classes:
 
 ```text
 UniversityStudentManagementSystem
+│
+├── Student
+├── StudentLinkedList
+├── ActionStack
+├── ServiceRequest
+├── ServiceRequestQueue
+├── StudentBST
+├── StudentHashTable
+├── CampusGraph
+└── UniversityStudentManagementSystem
 ```
 
----
-
-## 12. Project Structure
-
-The project is implemented as a Java console application.
-
-The main Java file is:
-
-```text
-UniversityStudentManagementSystem.java
-```
-
-The application contains the required data structure classes and the main management system in the same Java source file.
+Each class is responsible for a specific part of the system.
 
 ---
 
-## 13. How to Run the Project
+## 14. Team Member and Individual Contribution
 
-### Step 1 – Install Java
+This assignment was completed individually.
 
-Install the Java Development Kit (JDK) on the computer.
+### Student Details
 
-### Step 2 – Open the Project
+| Name | Student ID | Responsibility | Contribution |
+|---|---|---|---|
+| W A Duneesha Nethmi | 22UG3-0580 | Complete Project Development | Designed and implemented the complete system including Linked List, Stack, Queue, BST, Hash Table, Graph, BFS, menu system, input validation, testing, and documentation. |
 
-Open the project using a Java-supported IDE such as:
+### Individual Contribution
 
-- IntelliJ IDEA
-- Eclipse
-- NetBeans
-- Visual Studio Code
-
-### Step 3 – Compile the Program
-
-Use:
-
-```bash
-javac UniversityStudentManagementSystem.java
-```
-
-### Step 4 – Run the Program
-
-Use:
-
-```bash
-java UniversityStudentManagementSystem
-```
-
-### Step 5 – Use the Menu
-
-After running the program, the main menu will be displayed.
-
-Enter the required menu number and follow the instructions.
-
----
-
-## 14. Example Operations
-
-### Add Student
-
-The user can enter:
-
-```text
-Student ID
-Student Name
-Programme
-Marks
-```
-
-The student is then stored in:
-
-- Linked List
-- Binary Search Tree
-- Hash Table
-
----
-
-### Update Student
-
-The user enters an existing Student ID and provides the new:
-
-- Name
-- Programme
-- Marks
-
-The student record is updated and the previous record is stored in the recent action history.
-
----
-
-### Delete Student
-
-The user enters the Student ID.
-
-The student is removed from:
-
-- Linked List
-- BST
-- Hash Table
-
-The deletion is also recorded in the Stack.
-
----
-
-### Service Request
-
-A valid student can create a service request.
-
-Requests are stored in the Queue and processed in FIFO order.
-
----
-
-### Hash Search
-
-The user can enter a Student ID to search for a student using the Hash Table.
-
----
-
-### BST Display
-
-The system displays students using an in-order traversal of the BST.
-
-This displays the students according to Student ID order.
-
----
-
-### Campus Graph
-
-The user can:
-
-- Add a location
-- Remove a location
-- Add a road
-- Remove a road
-- View campus connections
-- View connected locations
-- Perform BFS traversal
-
----
-
-## 15. Individual Contribution
-
-This project was completed individually.
-
-### Developer
-
-**Name:** W. A. Duneesha Nethmi  
-**Student ID:** 22UG3-0580
-
-### Individual Responsibilities
-
-I was responsible for the complete development of the project, including:
+I completed the project individually and was responsible for:
 
 - Designing the overall system
 - Implementing the Student class
@@ -515,135 +353,152 @@ I was responsible for the complete development of the project, including:
 - Implementing the Binary Search Tree
 - Implementing the Hash Table
 - Implementing the Campus Graph
-- Implementing the BFS traversal
+- Implementing BFS traversal
 - Implementing the main menu
-- Implementing student management operations
-- Implementing service request operations
-- Implementing campus management operations
 - Implementing input validation
-- Integrating all data structures
-- Debugging and improving the program
-- Preparing project documentation
-- Testing the system
-- Managing the project repository and commits
+- Adding sample student data
+- Adding sample campus locations and connections
+- Testing the system functionality
+- Preparing the README documentation
 
 ---
 
-## 16. Testing Scenarios
+## 15. How to Run the Project
 
-The following scenarios can be used to test the system:
+### Step 1: Open the Project
+
+Open the Java project using a Java-compatible IDE such as IntelliJ IDEA, Eclipse, NetBeans, or VS Code.
+
+### Step 2: Open the Java File
+
+Open:
+
+```text
+UniversityStudentManagementSystem.java
+```
+
+### Step 3: Compile the Program
+
+Compile the Java file using the Java compiler.
+
+```bash
+javac UniversityStudentManagementSystem.java
+```
+
+### Step 4: Run the Program
+
+```bash
+java UniversityStudentManagementSystem
+```
+
+### Step 5: Use the Menu
+
+The main menu will be displayed.
+
+Select a number from the menu to perform the required operation.
+
+---
+
+## 16. Main Menu
+
+```text
+1. Add Student Record
+2. Update Student Record
+3. Delete Student Record
+4. Display All Records using Linked List
+5. Add Service Request to Queue
+6. Process Next Service Request
+7. Display Pending Service Requests
+8. Display Recent Actions using Stack
+9. Display Students using BST
+10. Search Student using Hashing
+11. Add Campus Location
+12. Remove Campus Location
+13. Add Campus Connection/Road
+14. Remove Campus Connection/Road
+15. Display Campus Connections
+16. Display Connected Locations
+17. Traverse Campus using BFS
+0. Exit
+```
+
+---
+
+## 17. Testing
+
+The system can be tested using the following operations:
 
 ### Student Testing
 
-- Add a new student.
-- Try to add a duplicate Student ID.
-- Update an existing student.
-- Try to update a non-existing student.
-- Delete an existing student.
-- Try to delete a non-existing student.
-- Display all student records.
-- Search for an existing Student ID using hashing.
-- Search for a non-existing Student ID.
+- Add a new student
+- Try adding a duplicate Student ID
+- Update an existing student
+- Try updating a non-existing student
+- Delete a student
+- Display all student records
+- Search for a student using Hashing
+- Display students using BST
 
 ### Queue Testing
 
-- Add a service request.
-- Add multiple service requests.
-- Display pending requests.
-- Process the next request.
-- Confirm that requests are processed in FIFO order.
-- Try to process a request when the queue is empty.
+- Add service requests
+- Display pending requests
+- Process the next request
+- Confirm that requests are processed in FIFO order
 
 ### Stack Testing
 
-- Perform several operations.
-- Display recent actions.
-- Confirm that the most recent action appears first.
-
-### BST Testing
-
-- Insert student records.
-- Search for a student.
-- Delete a student.
-- Display students using in-order traversal.
-
-### Hash Table Testing
-
-- Insert student records.
-- Search using Student ID.
-- Delete a student.
-- Search again after deletion.
+- Perform different system actions
+- Display recent actions
+- Confirm that the latest action is displayed first
 
 ### Graph Testing
 
-- Add a campus location.
-- Remove a campus location.
-- Add a campus connection.
-- Remove a campus connection.
-- Display campus connections.
-- Display connected locations.
-- Perform BFS from a selected campus location.
+- Add a new campus location
+- Add a connection between locations
+- Display campus connections
+- Display connected locations
+- Remove a connection
+- Remove a campus location
+- Perform BFS traversal
 
 ### Input Validation Testing
 
-- Enter an empty value.
-- Enter an invalid menu value.
-- Enter text instead of a number.
-- Enter marks below 0.
-- Enter marks above 100.
-- Enter duplicate Student IDs.
-- Enter unavailable campus locations.
+Invalid values can be entered to check whether the system correctly handles:
+
+- Empty values
+- Invalid menu numbers
+- Invalid marks
+- Duplicate Student IDs
+- Non-existing Student IDs
+- Duplicate campus locations
+- Invalid campus connections
 
 ---
 
-## 17. Technologies Used
+## 18. Data Structure Summary
 
-- **Programming Language:** Java
-- **Application Type:** Console Application
-- **Data Structures:** Linked List, Stack, Queue, BST, Hash Table, Graph
-- **Graph Representation:** Adjacency List
-- **Graph Traversal:** BFS
-- **Version Control:** Git / GitHub
-
----
-
-## 18. Learning Outcomes
-
-Through this project, the following concepts were practically implemented:
-
-- Linear data structures
-- Linked list operations
-- Stack operations
-- Queue operations
-- Tree operations
-- Binary Search Tree searching and deletion
-- Hashing and collision handling
-- Graph representation
-- Adjacency lists
-- Breadth-First Search
-- Input validation
-- Object-oriented programming
-- Integration of multiple data structures into one application
+| Data Structure | Purpose |
+|---|---|
+| Singly Linked List | Store and manage student records |
+| Stack | Store recent system actions |
+| Queue | Manage student service requests |
+| Binary Search Tree | Organize and search students by Student ID |
+| Hash Table | Search students by Student ID |
+| Graph | Represent campus locations and roads |
+| BFS | Traverse connected campus locations |
 
 ---
 
 ## 19. Conclusion
 
-The University Student Record and Campus Route Management System demonstrates how different data structures can be combined to develop a practical Java console application.
+The University Student Record and Campus Route Management System demonstrates the practical use of important Data Structures and Algorithms concepts in Java.
 
-The system manages student records using a Singly Linked List, maintains recent actions using a Stack, processes service requests using a Queue, organizes student records using a Binary Search Tree, provides Student ID searching using a Hash Table, and represents campus locations and connections using a Graph with an Adjacency List.
+The project combines multiple data structures to manage student records, service requests, and campus routes. It also includes input validation and a menu-driven console interface.
 
-The system also provides BFS traversal, menu-driven operations, and input validation.
+The implementation demonstrates how different data structures can be used for different purposes within one complete application.
 
-This project provides practical experience in implementing and integrating fundamental Data Structures and Algorithms concepts in Java.
+This project was completed individually by:
 
----
-
-## 20. Academic Information
-
-**Module:** CIT300 – Data Structures and Algorithms  
-**Assignment:** Graded Practical Assignment 1  
-**Project:** University Student Record and Campus Route Management System  
-**Student:** W. A. Duneesha Nethmi  
-**Student ID:** 22UG3-0580  
-**Project Type:** Individual Project
+**W A Duneesha Nethmi**  
+**Student ID: 22UG3-0580**
