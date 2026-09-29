@@ -271,3 +271,419 @@ class ServiceRequestQueue {
         }
     }
 }
+
+/* =========================================================
+   BST - Student Records by Student ID
+   ========================================================= */
+
+class StudentBSTNode {
+    Student student;
+    StudentBSTNode left;
+    StudentBSTNode right;
+
+    public StudentBSTNode(Student student) {
+        this.student = student;
+    }
+}
+
+class StudentBST {
+    private StudentBSTNode root;
+
+    public boolean insert(Student student) {
+        if (search(student.getStudentId()) != null) {
+            return false;
+        }
+
+        root = insertRecursive(root, student);
+        return true;
+    }
+
+    private StudentBSTNode insertRecursive(StudentBSTNode node, Student student) {
+        if (node == null) {
+            return new StudentBSTNode(student);
+        }
+
+        int comparison = student.getStudentId()
+                .compareToIgnoreCase(node.student.getStudentId());
+
+        if (comparison < 0) {
+            node.left = insertRecursive(node.left, student);
+        } else if (comparison > 0) {
+            node.right = insertRecursive(node.right, student);
+        }
+
+        return node;
+    }
+
+    public Student search(String studentId) {
+        return searchRecursive(root, studentId);
+    }
+
+    private Student searchRecursive(StudentBSTNode node, String studentId) {
+        if (node == null) {
+            return null;
+        }
+
+        int comparison = studentId.compareToIgnoreCase(node.student.getStudentId());
+
+        if (comparison == 0) {
+            return node.student;
+        }
+
+        if (comparison < 0) {
+            return searchRecursive(node.left, studentId);
+        }
+
+        return searchRecursive(node.right, studentId);
+    }
+
+    public boolean delete(String studentId) {
+        if (search(studentId) == null) {
+            return false;
+        }
+
+        root = deleteRecursive(root, studentId);
+        return true;
+    }
+
+    private StudentBSTNode deleteRecursive(StudentBSTNode node, String studentId) {
+        if (node == null) {
+            return null;
+        }
+
+        int comparison = studentId.compareToIgnoreCase(node.student.getStudentId());
+
+        if (comparison < 0) {
+            node.left = deleteRecursive(node.left, studentId);
+        } else if (comparison > 0) {
+            node.right = deleteRecursive(node.right, studentId);
+        } else {
+            if (node.left == null) {
+                return node.right;
+            }
+
+            if (node.right == null) {
+                return node.left;
+            }
+
+            StudentBSTNode successor = findMinimum(node.right);
+            node.student = successor.student;
+            node.right = deleteRecursive(
+                    node.right,
+                    successor.student.getStudentId()
+            );
+        }
+
+        return node;
+    }
+
+    private StudentBSTNode findMinimum(StudentBSTNode node) {
+        StudentBSTNode current = node;
+
+        while (current.left != null) {
+            current = current.left;
+        }
+
+        return current;
+    }
+
+    public void display() {
+        System.out.println("\n=== Students Using BST (Sorted by Student ID) ===");
+
+        if (root == null) {
+            System.out.println("No students in BST.");
+            return;
+        }
+
+        inorder(root);
+    }
+
+    private void inorder(StudentBSTNode node) {
+        if (node != null) {
+            inorder(node.left);
+            System.out.println(node.student);
+            inorder(node.right);
+        }
+    }
+}
+
+/* =========================================================
+   HASH TABLE - Efficient Student ID Searching
+   ========================================================= */
+
+class StudentHashTable {
+    private static final int TABLE_SIZE = 101;
+    private Student[] table;
+
+    public StudentHashTable() {
+        table = new Student[TABLE_SIZE];
+    }
+
+    private int hash(String studentId) {
+        int hashValue = Math.abs(studentId.toUpperCase().hashCode());
+        return hashValue % TABLE_SIZE;
+    }
+
+    public boolean insert(Student student) {
+        int index = hash(student.getStudentId());
+        int startIndex = index;
+
+        while (table[index] != null) {
+            if (table[index].getStudentId().equalsIgnoreCase(student.getStudentId())) {
+                return false;
+            }
+
+            index = (index + 1) % TABLE_SIZE;
+
+            if (index == startIndex) {
+                return false;
+            }
+        }
+
+        table[index] = student;
+        return true;
+    }
+
+    public Student search(String studentId) {
+        int index = hash(studentId);
+        int startIndex = index;
+
+        while (table[index] != null) {
+            if (table[index].getStudentId().equalsIgnoreCase(studentId)) {
+                return table[index];
+            }
+
+            index = (index + 1) % TABLE_SIZE;
+
+            if (index == startIndex) {
+                break;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean delete(String studentId) {
+        int index = hash(studentId);
+        int startIndex = index;
+
+        while (table[index] != null) {
+            if (table[index].getStudentId().equalsIgnoreCase(studentId)) {
+                table[index] = null;
+                rehashCluster(index);
+                return true;
+            }
+
+            index = (index + 1) % TABLE_SIZE;
+
+            if (index == startIndex) {
+                break;
+            }
+        }
+
+        return false;
+    }
+
+    private void rehashCluster(int deletedIndex) {
+        int index = (deletedIndex + 1) % TABLE_SIZE;
+
+        while (table[index] != null) {
+            Student student = table[index];
+            table[index] = null;
+            insert(student);
+            index = (index + 1) % TABLE_SIZE;
+        }
+    }
+}
+
+/* =========================================================
+   GRAPH - Campus Locations and Connections
+   Adjacency List + BFS
+   ========================================================= */
+
+class CampusGraph {
+    private Map<String, List<String>> adjacencyList;
+
+    public CampusGraph() {
+        adjacencyList = new LinkedHashMap<>();
+    }
+
+    private String normalize(String location) {
+        return location.trim();
+    }
+
+    public boolean addLocation(String location) {
+        location = normalize(location);
+
+        if (location.isEmpty() || adjacencyList.containsKey(location)) {
+            return false;
+        }
+
+        adjacencyList.put(location, new ArrayList<>());
+        return true;
+    }
+
+    public boolean removeLocation(String location) {
+        location = normalize(location);
+
+        if (!adjacencyList.containsKey(location)) {
+            return false;
+        }
+
+        adjacencyList.remove(location);
+
+        for (List<String> neighbours : adjacencyList.values()) {
+            neighbours.remove(location);
+        }
+
+        return true;
+    }
+
+    public boolean addConnection(String location1, String location2) {
+        location1 = normalize(location1);
+        location2 = normalize(location2);
+
+        if (!adjacencyList.containsKey(location1)
+                || !adjacencyList.containsKey(location2)) {
+            return false;
+        }
+
+        if (location1.equalsIgnoreCase(location2)) {
+            return false;
+        }
+
+        if (containsIgnoreCase(adjacencyList.get(location1), location2)) {
+            return false;
+        }
+
+        adjacencyList.get(location1).add(location2);
+        adjacencyList.get(location2).add(location1);
+
+        return true;
+    }
+
+    public boolean removeConnection(String location1, String location2) {
+        location1 = normalize(location1);
+        location2 = normalize(location2);
+
+        if (!adjacencyList.containsKey(location1)
+                || !adjacencyList.containsKey(location2)) {
+            return false;
+        }
+
+        boolean removed1 = removeIgnoreCase(adjacencyList.get(location1), location2);
+        boolean removed2 = removeIgnoreCase(adjacencyList.get(location2), location1);
+
+        return removed1 && removed2;
+    }
+
+    private boolean containsIgnoreCase(List<String> list, String value) {
+        for (String item : list) {
+            if (item.equalsIgnoreCase(value)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean removeIgnoreCase(List<String> list, String value) {
+        Iterator<String> iterator = list.iterator();
+
+        while (iterator.hasNext()) {
+            if (iterator.next().equalsIgnoreCase(value)) {
+                iterator.remove();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void displayConnections() {
+        System.out.println("\n=== Campus Network - Adjacency List ===");
+
+        if (adjacencyList.isEmpty()) {
+            System.out.println("No campus locations available.");
+            return;
+        }
+
+        for (Map.Entry<String, List<String>> entry : adjacencyList.entrySet()) {
+            System.out.print(entry.getKey() + " -> ");
+
+            if (entry.getValue().isEmpty()) {
+                System.out.println("No direct connections");
+            } else {
+                System.out.println(String.join(", ", entry.getValue()));
+            }
+        }
+    }
+
+    public void displayNeighbours(String location) {
+        location = normalize(location);
+
+        String actualLocation = findLocation(location);
+
+        if (actualLocation == null) {
+            System.out.println("Campus location not found: " + location);
+            return;
+        }
+
+        List<String> neighbours = adjacencyList.get(actualLocation);
+
+        System.out.println("\n=== Connected Locations for " + actualLocation + " ===");
+
+        if (neighbours.isEmpty()) {
+            System.out.println("No direct connections.");
+            return;
+        }
+
+        for (String neighbour : neighbours) {
+            System.out.println("- " + neighbour);
+        }
+    }
+
+    public void bfs(String startLocation) {
+        startLocation = normalize(startLocation);
+        String actualStart = findLocation(startLocation);
+
+        if (actualStart == null) {
+            System.out.println("Campus location not found: " + startLocation);
+            return;
+        }
+
+        Queue<String> queue = new LinkedList<>();
+        Set<String> visited = new LinkedHashSet<>();
+
+        queue.offer(actualStart);
+        visited.add(actualStart);
+
+        System.out.println("\n=== BFS Campus Traversal ===");
+
+        while (!queue.isEmpty()) {
+            String current = queue.poll();
+            System.out.println("Visited: " + current);
+
+            for (String neighbour : adjacencyList.get(current)) {
+                if (!visited.contains(neighbour)) {
+                    visited.add(neighbour);
+                    queue.offer(neighbour);
+                }
+            }
+        }
+    }
+
+    private String findLocation(String location) {
+        for (String key : adjacencyList.keySet()) {
+            if (key.equalsIgnoreCase(location)) {
+                return key;
+            }
+        }
+
+        return null;
+    }
+
+    public boolean isEmpty() {
+        return adjacencyList.isEmpty();
+    }
+}
