@@ -208,3 +208,66 @@ class ActionStack {
         }
     }
 }
+
+/* =========================================================
+   QUEUE - Student Service Requests
+   ========================================================= */
+
+class ServiceRequest {
+    private String studentId;
+    private String request;
+    private String requestTime;
+
+    public ServiceRequest(String studentId, String request) {
+        this.studentId = studentId;
+        this.request = request;
+        this.requestTime = new Date().toString();
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    @Override
+    public String toString() {
+        return "Student ID: " + studentId
+                + ", Request: " + request
+                + ", Time: " + requestTime;
+    }
+}
+
+class ServiceRequestQueue {
+    private Queue<ServiceRequest> queue;
+
+    public ServiceRequestQueue() {
+        queue = new LinkedList<>();
+    }
+
+    public void enqueue(ServiceRequest request) {
+        queue.offer(request);
+    }
+
+    public ServiceRequest dequeue() {
+        return queue.poll();
+    }
+
+    public boolean isEmpty() {
+        return queue.isEmpty();
+    }
+
+    public void display() {
+        System.out.println("\n=== Student Service Requests - Queue (FIFO) ===");
+
+        if (queue.isEmpty()) {
+            System.out.println("No pending service requests.");
+            return;
+        }
+
+        int position = 1;
+
+        for (ServiceRequest request : queue) {
+            System.out.println(position + ". " + request);
+            position++;
+        }
+    }
+}
