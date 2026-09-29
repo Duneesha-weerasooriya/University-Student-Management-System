@@ -975,3 +975,158 @@ public class UniversityStudentManagementSystem {
         actionStack.push("Processed service request for student: "
                 + request.getStudentId());
     }
+  /* ================= GRAPH OPERATIONS ================= */
+
+    private void addCampusLocation() {
+        System.out.println("\n=== Add Campus Location ===");
+
+        String location = readNonEmpty("Enter new campus location: ");
+
+        if (campusGraph.addLocation(location)) {
+            actionStack.push("Added campus location: " + location);
+            System.out.println("Campus location added successfully.");
+        } else {
+            System.out.println(
+                    "Location could not be added. It may already exist."
+            );
+        }
+    }
+
+    private void removeCampusLocation() {
+        System.out.println("\n=== Remove Campus Location ===");
+
+        String location = readNonEmpty("Enter campus location to remove: ");
+
+        if (campusGraph.removeLocation(location)) {
+            actionStack.push("Removed campus location: " + location);
+            System.out.println("Campus location removed successfully.");
+        } else {
+            System.out.println("Campus location not found.");
+        }
+    }
+
+    private void addCampusConnection() {
+        System.out.println("\n=== Add Campus Connection/Road ===");
+
+        String location1 = readNonEmpty("Enter first location: ");
+        String location2 = readNonEmpty("Enter second location: ");
+
+        if (campusGraph.addConnection(location1, location2)) {
+            actionStack.push("Added campus connection: "
+                    + location1 + " <-> " + location2);
+
+            System.out.println("Campus connection added successfully.");
+        } else {
+            System.out.println(
+                    "Connection could not be added. Check that both locations "
+                    + "exist and that the connection is not already present."
+            );
+        }
+    }
+
+    private void removeCampusConnection() {
+        System.out.println("\n=== Remove Campus Connection/Road ===");
+
+        String location1 = readNonEmpty("Enter first location: ");
+        String location2 = readNonEmpty("Enter second location: ");
+
+        if (campusGraph.removeConnection(location1, location2)) {
+            actionStack.push("Removed campus connection: "
+                    + location1 + " <-> " + location2);
+
+            System.out.println("Campus connection removed successfully.");
+        } else {
+            System.out.println(
+                    "Connection not found or one of the locations does not exist."
+            );
+        }
+    }
+
+    private void displayConnectedLocations() {
+        System.out.println("\n=== Display Connected Locations ===");
+
+        String location = readNonEmpty("Enter campus location: ");
+        campusGraph.displayNeighbours(location);
+    }
+
+    private void traverseCampusBFS() {
+        System.out.println("\n=== BFS Campus Traversal ===");
+
+        String startLocation = readNonEmpty(
+                "Enter starting campus location: "
+        );
+
+        campusGraph.bfs(startLocation);
+
+        actionStack.push("Performed BFS traversal from: " + startLocation);
+    }
+
+    /* ================= INPUT VALIDATION ================= */
+
+    private String readNonEmpty(String message) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            if (!input.isEmpty()) {
+                return input;
+            }
+
+            System.out.println("Input cannot be empty. Please try again.");
+        }
+    }
+
+    private int readInt(String message, int minimum, int maximum) {
+        while (true) {
+            System.out.print(message);
+            String input = scanner.nextLine().trim();
+
+            try {
+                int value = Integer.parseInt(input);
+
+                if (value >= minimum && value <= maximum) {
+                    return value;
+                }
+
+                System.out.println(
+                        "Please enter a number between "
+                        + minimum + " and " + maximum + "."
+                );
+
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a number.");
+            }
+        }
+    }
+
+    private double readMarks() {
+        while (true) {
+            System.out.print("Enter Marks (0 - 100): ");
+            String input = scanner.nextLine().trim();
+
+            try {
+                double marks = Double.parseDouble(input);
+
+                if (marks >= 0 && marks <= 100) {
+                    return marks;
+                }
+
+                System.out.println("Marks must be between 0 and 100.");
+
+            } catch (NumberFormatException e) {
+                System.out.println(
+                        "Invalid marks. Please enter a numeric value."
+                );
+            }
+        }
+    }
+
+    /* ================= MAIN ================= */
+
+    public static void main(String[] args) {
+        UniversityStudentManagementSystem system =
+                new UniversityStudentManagementSystem();
+
+        system.run();
+    }
+}
