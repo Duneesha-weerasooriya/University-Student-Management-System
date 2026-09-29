@@ -687,3 +687,291 @@ class CampusGraph {
         return adjacencyList.isEmpty();
     }
 }
+
+/* =========================================================
+   MAIN UNIVERSITY MANAGEMENT SYSTEM
+   ========================================================= */
+
+public class UniversityStudentManagementSystem {
+
+    private StudentLinkedList studentList;
+    private ActionStack actionStack;
+    private ServiceRequestQueue serviceQueue;
+    private StudentBST studentBST;
+    private StudentHashTable studentHashTable;
+    private CampusGraph campusGraph;
+    private Scanner scanner;
+
+    public UniversityStudentManagementSystem() {
+        studentList = new StudentLinkedList();
+        actionStack = new ActionStack();
+        serviceQueue = new ServiceRequestQueue();
+        studentBST = new StudentBST();
+        studentHashTable = new StudentHashTable();
+        campusGraph = new CampusGraph();
+        scanner = new Scanner(System.in);
+
+        initializeSampleData();
+        initializeCampusData();
+    }
+
+    private void initializeSampleData() {
+        addStudentSilently(
+                new Student("S001", "Ashen Shanuka", "Applied IT", 78.50)
+        );
+
+        addStudentSilently(
+                new Student("S002", "Nimal Perera", "Computer Science", 82.00)
+        );
+
+        addStudentSilently(
+                new Student("S003", "Kamal Silva", "Cyber Security", 74.50)
+        );
+    }
+
+    private void addStudentSilently(Student student) {
+        studentList.add(student);
+        studentBST.insert(student);
+        studentHashTable.insert(student);
+    }
+
+    private void initializeCampusData() {
+        campusGraph.addLocation("Main Gate");
+        campusGraph.addLocation("Administration Building");
+        campusGraph.addLocation("Faculty of Computing");
+        campusGraph.addLocation("Library");
+        campusGraph.addLocation("Student Center");
+        campusGraph.addLocation("ICT Laboratory");
+
+        campusGraph.addConnection("Main Gate", "Administration Building");
+        campusGraph.addConnection("Administration Building", "Faculty of Computing");
+        campusGraph.addConnection("Administration Building", "Library");
+        campusGraph.addConnection("Faculty of Computing", "ICT Laboratory");
+        campusGraph.addConnection("Faculty of Computing", "Student Center");
+        campusGraph.addConnection("Library", "Student Center");
+    }
+
+    /* ================= MENU ================= */
+
+    public void displayMenu() {
+        System.out.println("\n======================================================");
+        System.out.println("       UNIVERSITY STUDENT MANAGEMENT SYSTEM");
+        System.out.println("======================================================");
+        System.out.println("1.  Add Student Record");
+        System.out.println("2.  Update Student Record");
+        System.out.println("3.  Delete Student Record");
+        System.out.println("4.  Display All Records using Linked List");
+        System.out.println("5.  Add Service Request to Queue");
+        System.out.println("6.  Process Next Service Request");
+        System.out.println("7.  Display Pending Service Requests");
+        System.out.println("8.  Display Recent Actions using Stack");
+        System.out.println("9.  Display Students using BST");
+        System.out.println("10. Search Student using Hashing");
+        System.out.println("11. Add Campus Location");
+        System.out.println("12. Remove Campus Location");
+        System.out.println("13. Add Campus Connection/Road");
+        System.out.println("14. Remove Campus Connection/Road");
+        System.out.println("15. Display Campus Connections");
+        System.out.println("16. Display Connected Locations");
+        System.out.println("17. Traverse Campus using BFS");
+        System.out.println("0.  Exit");
+        System.out.println("======================================================");
+    }
+
+    public void run() {
+        System.out.println("\nWelcome to the University Student Management System!");
+
+        while (true) {
+            displayMenu();
+
+            int choice = readInt("Enter your choice: ", 0, 17);
+
+            switch (choice) {
+                case 1:
+                    addStudent();
+                    break;
+                case 2:
+                    updateStudent();
+                    break;
+                case 3:
+                    deleteStudent();
+                    break;
+                case 4:
+                    studentList.display();
+                    break;
+                case 5:
+                    addServiceRequest();
+                    break;
+                case 6:
+                    processServiceRequest();
+                    break;
+                case 7:
+                    serviceQueue.display();
+                    break;
+                case 8:
+                    actionStack.display();
+                    break;
+                case 9:
+                    studentBST.display();
+                    break;
+                case 10:
+                    searchStudentUsingHashing();
+                    break;
+                case 11:
+                    addCampusLocation();
+                    break;
+                case 12:
+                    removeCampusLocation();
+                    break;
+                case 13:
+                    addCampusConnection();
+                    break;
+                case 14:
+                    removeCampusConnection();
+                    break;
+                case 15:
+                    campusGraph.displayConnections();
+                    break;
+                case 16:
+                    displayConnectedLocations();
+                    break;
+                case 17:
+                    traverseCampusBFS();
+                    break;
+                case 0:
+                    System.out.println("\nThank you for using the University Student Management System.");
+                    scanner.close();
+                    return;
+            }
+        }
+    }
+
+    /* ================= STUDENT OPERATIONS ================= */
+
+    private void addStudent() {
+        System.out.println("\n=== Add Student Record ===");
+
+        String id = readNonEmpty("Enter Student ID: ");
+
+        if (studentList.contains(id)) {
+            System.out.println("Duplicate Student ID. Student already exists.");
+            return;
+        }
+
+        String name = readNonEmpty("Enter Student Name: ");
+        String programme = readNonEmpty("Enter Programme: ");
+        double marks = readMarks();
+
+        Student student = new Student(id, name, programme, marks);
+
+        studentList.add(student);
+        studentBST.insert(student);
+        studentHashTable.insert(student);
+
+        actionStack.push("Added student: " + id + " - " + name);
+
+        System.out.println("Student added successfully.");
+    }
+
+    private void updateStudent() {
+        System.out.println("\n=== Update Student Record ===");
+
+        String id = readNonEmpty("Enter Student ID to update: ");
+        Student student = studentList.find(id);
+
+        if (student == null) {
+            System.out.println("Student record not found.");
+            return;
+        }
+
+        String oldDetails = student.toString();
+
+        String name = readNonEmpty("Enter new Name: ");
+        String programme = readNonEmpty("Enter new Programme: ");
+        double marks = readMarks();
+
+        student.setName(name);
+        student.setProgramme(programme);
+        student.setMarks(marks);
+
+        actionStack.push("Updated student " + id
+                + ". Previous record: " + oldDetails);
+
+        System.out.println("Student record updated successfully.");
+    }
+
+    private void deleteStudent() {
+        System.out.println("\n=== Delete Student Record ===");
+
+        String id = readNonEmpty("Enter Student ID to delete: ");
+        Student student = studentList.find(id);
+
+        if (student == null) {
+            System.out.println("Student record not found.");
+            return;
+        }
+
+        Student deletedStudent = studentList.delete(id);
+
+        studentBST.delete(id);
+        studentHashTable.delete(id);
+
+        actionStack.push("Deleted student: " + deletedStudent);
+
+        System.out.println("Student record deleted successfully.");
+    }
+
+    private void searchStudentUsingHashing() {
+        System.out.println("\n=== Search Student Using Hashing ===");
+
+        String id = readNonEmpty("Enter Student ID: ");
+        Student student = studentHashTable.search(id);
+
+        if (student != null) {
+            System.out.println("Student found using hash table:");
+            System.out.println(student);
+        } else {
+            System.out.println("Student not found with ID: " + id);
+        }
+    }
+
+    /* ================= QUEUE OPERATIONS ================= */
+
+    private void addServiceRequest() {
+        System.out.println("\n=== Add Student Service Request ===");
+
+        String studentId = readNonEmpty("Enter Student ID: ");
+
+        if (studentList.find(studentId) == null) {
+            System.out.println("Student record not found. Service request cannot be added.");
+            return;
+        }
+
+        String request = readNonEmpty("Enter Service Request: ");
+
+        ServiceRequest serviceRequest =
+                new ServiceRequest(studentId, request);
+
+        serviceQueue.enqueue(serviceRequest);
+
+        actionStack.push("Added service request for student: " + studentId);
+
+        System.out.println("Service request added to the queue successfully.");
+    }
+
+    private void processServiceRequest() {
+        System.out.println("\n=== Process Next Service Request ===");
+
+        if (serviceQueue.isEmpty()) {
+            System.out.println("No pending service requests.");
+            return;
+        }
+
+        ServiceRequest request = serviceQueue.dequeue();
+
+        System.out.println("Processing request:");
+        System.out.println(request);
+
+        actionStack.push("Processed service request for student: "
+                + request.getStudentId());
+    }
