@@ -167,3 +167,44 @@ class StudentLinkedList {
         }
     }
 }
+
+/* =========================================================
+   STACK - Recent Actions / History
+   ========================================================= */
+
+class ActionStack {
+    private Stack<String> stack;
+
+    public ActionStack() {
+        stack = new Stack<>();
+    }
+
+    public void push(String action) {
+        stack.push(action);
+    }
+
+    public String pop() {
+        if (stack.isEmpty()) {
+            return null;
+        }
+
+        return stack.pop();
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
+    public void display() {
+        System.out.println("\n=== Recent Actions - Stack (LIFO) ===");
+
+        if (stack.isEmpty()) {
+            System.out.println("No recent actions.");
+            return;
+        }
+
+        for (int i = stack.size() - 1, position = 1; i >= 0; i--, position++) {
+            System.out.println(position + ". " + stack.get(i));
+        }
+    }
+}
